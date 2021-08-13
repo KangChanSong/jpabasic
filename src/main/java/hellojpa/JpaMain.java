@@ -16,11 +16,16 @@ public class JpaMain {
         tx.begin();
 
         try {
+            //비영속
+            Member member = new Member();
+            member.setId(100L);
+            member.setName("MEME");
+            
+            //영속
+            em.persist(member);
 
-            List<Member> result = em.createQuery("select m from Member m")
-                    .setFirstResult(1)
-                    .setMaxResults(10)
-                    .getResultList();
+            //준영속
+            em.detach(member);
 
             tx.commit();
         } catch (Exception e){
